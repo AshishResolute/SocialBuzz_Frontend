@@ -1,6 +1,6 @@
 export const LoginForm = () => {
   return (
-    <form action="" className="flex flex-col bg-black/40  rounded-2xl p-8 gap-4 text-gray-300">
+    <form action="" className="flex flex-col bg-black/40  rounded-2xl p-8 gap-4 text-gray-300" onSubmit={handleLogin}>
       <h2 className="text-2xl font-bold text-white">
         Welcome <span className="text-yellow-300">Back</span>
       </h2>
@@ -11,7 +11,7 @@ export const LoginForm = () => {
         name="email"
         id="email"
         placeholder="you@example.com"
-        className="p-2"
+        className="p-2 bg-white/10 border border-white/10 rounded-lg focus:outline-none focus:ring focus:ring-yellow-400"
       />
       <label htmlFor="password">Password</label>
       <input
@@ -19,19 +19,24 @@ export const LoginForm = () => {
         name="password"
         id="password"
         placeholder="Enter your password"
-        className="p-2"
+        className="p-2 bg-white/10 border  border-white/10 rounded-xl focus:outline-none focus:ring focus:ring-yellow-400"
       />
       <div className="grid grid-cols-2 gap-4 text-sm">
         <div className="flex justify-center items-center gap-2">
           <input type="checkbox" id="remember" />
           <label htmlFor="remember">Remember Me</label>
         </div>
-        <a href="#" className="text-yellow-300">Forgot password?</a>
+        <a href="#" className="text-yellow-500">Forgot password?</a>
       </div>
-      <button className="bg-amber-300 p-2 rounded-xl text-gray-900 hover:bg-black hover:text-yellow-300 transition-colors duration-300">Login</button>
+      <button type="submit" className="bg-amber-300 p-2 rounded-xl text-gray-900 hover:bg-black hover:text-yellow-300 transition-colors duration-300">Login</button>
       <p className="text-sm text-center">
-        Don't have an Account? <a href="#" className="text-yellow-300">Signup</a>
+        Don't have an Account? <a href="#" className="text-yellow-500">Signup</a>
       </p>
     </form>
   );
 };
+
+
+const handleLogin = (event)=>{
+  event.preventDefault()
+}
