@@ -33,7 +33,7 @@ export const LoginForm = () => {
       }));
       return;
     }
-    else if (errors.email !== null) {
+    else if (errors.password !== null) {
       setErrors((prev) => ({
         ...prev,
         password: `Invalid password provided!`,
