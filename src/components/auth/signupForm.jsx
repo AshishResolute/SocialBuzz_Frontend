@@ -5,30 +5,23 @@ export const SignupForm = () => {
     username: "",
     email: "",
     password: "",
-    confirm_password: "",
+    confirmPassword: "",
   });
 
   const [errors, setErrors] = useState({
     username: null,
     email: null,
     password: null,
-    confirm_password: null,
+    confirmPassword: null,
   });
-  const handleSignup = (event) => {
-    event.preventDefault();
-    console.log("The res sent is:", formData);
-  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    const error = validateField(name, value);
-    console.log("name:", name);
-console.log("value:", value);
-console.log("error:", error);
+    const error = validateField(name, value, formData.password,formData.confirmPassword);
     if (error) {
-      setErrors((prev)=>({
+      setErrors((prev) => ({
         ...prev,
-        [name]:error
+        [name]: error,
       }));
     } else {
       setErrors((prev) => ({
@@ -40,6 +33,46 @@ console.log("error:", error);
       ...prev,
       [name]: value,
     }));
+  };
+  const handleSignup = (event) => {
+    event.preventDefault();
+    if (formData.username.length === 0) {
+      setErrors((prev) => ({
+        ...prev,
+        username: `username is required`,
+      }));
+      return;
+    } else if (errors.username !== null) {
+      setErrors((prev) => ({
+        ...prev,
+        username: `Invalid username`,
+      }));
+      return;
+    } else if (formData.email.length === 0) {
+      setErrors((prev) => ({
+        ...prev,
+        email: `email is required!`,
+      }));
+      return;
+    } else if (errors.email !== null) {
+      setErrors((prev) => ({
+        ...prev,
+        email: `Invalid Email`,
+      }));
+      return;
+    } else if (formData.password.length === 0) {
+      setErrors((prev) => ({
+        ...prev,
+        password: `Password required!`,
+      }));
+      return;
+    } else if (errors.password !== null) {
+      setErrors((prev) => ({
+        ...prev,
+        password: `Invalid password provided!`,
+      }));
+      return;
+    } else console.log(`res submitted`, formData);
   };
   return (
     <form
@@ -62,7 +95,10 @@ console.log("error:", error);
           placeholder="Enter your name"
           className="p-1.5  bg-white/10 border border-white/10 rounded-lg focus:outline-none focus:ring focus:ring-yellow-400"
         />
-        {errors.username&& <p className="text-red-500 text-sm">{errors.username}</p>}
+        {errors.username && (
+          <p className="text-red-500 text-sm">{errors.username}</p>
+        )}
+        {/* {formData.username.length===0&& <p className="text-red-500 text-sm">username is required</p>} */}
         <label htmlFor="email">Email address</label>
         <input
           type="email"
@@ -73,6 +109,7 @@ console.log("error:", error);
           placeholder="you@example.com"
           className="p-1.5 bg-white/10 border border-white/10 rounded-lg focus:outline-none focus:ring focus:ring-yellow-400"
         />
+        {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
         <label htmlFor="password">Password</label>
         <input
           type="password"
@@ -83,16 +120,22 @@ console.log("error:", error);
           placeholder="Create a strong password"
           className="p-1.5 bg-white/10 border border-white/10 rounded-lg focus:outline-none focus:ring focus:ring-yellow-400"
         />
+        {errors.password && (
+          <p className="text-red-500 text-sm">{errors.password}</p>
+        )}
         <label htmlFor="confirm_password">Confirm password</label>
         <input
           type="password"
-          name="confirm_password"
-          value={formData.confirm_password}
+          name="confirmPassword"
+          value={formData.confirmPassword}
           onChange={handleChange}
           id="confirm_password"
           placeholder="Confirm password"
           className="p-1.5 bg-white/10 border border-white/10 rounded-lg focus:outline-none focus:ring focus:ring-yellow-400"
         />
+        {errors.confirmPassword && (
+          <p className="text-red-500 text-sm">{errors.confirmPassword}</p>
+        )}
       </div>
       <button
         type="submit"
@@ -110,9 +153,43 @@ console.log("error:", error);
   );
 };
 
-const validateField = (name, value) => {
+const validateField = (name, value, password,confirmPassword) => {
+  console.log(password);
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const lowerCaseRegex = /[a-z]/;
+  const upperCaseRegex = /[A-Z]/;
+  const specialRegex = /[!@#$%^&*()]/;
   if (name === "username") {
-    if ((value.length < 3 || value.length > 15 )&&value.length!==0)
+    if ((value.length < 3 || value.length > 15) && value.length !== 0)
       return "username must be between 3 and 15 characters";
-  } else return null;
+    else return null;
+  }
+  if (name === "email") {
+    if (value.length !== 0 && !emailRegex.test(value)) return "Invalid email!";
+    else return null;
+  }
+  if (name === "password") {
+    if ((value.length < 8 || value.length > 28) && value.length !== 0) {
+      return "Password must be between 8 and 28 characters";
+    }
+    if (!lowerCaseRegex.test(value) && value.length !== 0) {
+      return "password must have atleast 1 lower case character";
+    }
+    if (!upperCaseRegex.test(value) && value.length !== 0) {
+      return "password must have atleast 1 upper case character";
+    }
+    if (!specialRegex.test(value) && value.length !== 0) {
+      return "password must have atleast 1 special character";
+    }
+    else if(value!==confirmPassword){
+      return "Passwords don\'t match!"
+    }
+    return null;
+  }
+ if(name==='confirmPassword'){
+  if(value.length!==0&&value!==password){
+    return 'passwords don\'t match'
+  }
+  else return null
+ }
 };
