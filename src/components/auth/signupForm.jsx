@@ -72,8 +72,20 @@ export const SignupForm = () => {
         password: `Invalid password provided!`,
       }));
       return;
-    } else console.log(`res submitted`, formData);
-  };
+    } 
+     else if (formData.password.length === 0) {
+      setErrors((prev) => ({
+        ...prev,
+        password: `Password required!`,
+      }));
+      return;
+    } else if (errors.password !== null) {
+      setErrors((prev) => ({
+        ...prev,
+        password: `Invalid password provided!`,
+      }));
+      return;
+  }else console.log(`res submitted`, formData);}
   return (
     <form
       action=""
