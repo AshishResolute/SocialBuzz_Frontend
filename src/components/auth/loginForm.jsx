@@ -1,17 +1,70 @@
 import { useState } from "react";
 
 export const LoginForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [loginForm, setLoginForm] = useState({
+    email: "",
+    password: "",
+  });
 
+  const [errors, setErrors] = useState({
+    email: null,
+    password: null,
+  });
   const handleLogin = (event) => {
-  event.preventDefault();
-};
+    event.preventDefault();
+    if (loginForm.email.length === 0) {
+      setErrors((prev) => ({
+        ...prev,
+        email: `email required!`,
+      }));
+      return;
+    }
+    else if (errors.email !== null) {
+      setErrors((prev) => ({
+        ...prev,
+        email: `Invalid email provided!`,
+      }));
+      return;
+    }
+    else if (loginForm.password.length === 0) {
+      setErrors((prev) => ({
+        ...prev,
+        password: `password required!`,
+      }));
+      return;
+    }
+    else if (errors.email !== null) {
+      setErrors((prev) => ({
+        ...prev,
+        password: `Invalid password provided!`,
+      }));
+      return;
+    } else console.log(`res sent`, loginForm);
+  };
 
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    const error = validateField(name, value);
+     if (error) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: error,
+      }));
+    } else {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: null,
+      }));
+    }
+    setLoginForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
   return (
     <form
       action=""
-      className="flex flex-col bg-black/40  rounded-2xl p-8 gap-4 text-gray-300"
+      className="flex flex-col bg-black/40  rounded-2xl p-8 gap-4 text-gray-300 w-md"
       onSubmit={handleLogin}
     >
       <h2 className="text-2xl font-bold text-white">
@@ -23,23 +76,25 @@ export const LoginForm = () => {
         type="email"
         name="email"
         id="email"
-        value={email}
+        value={loginForm.email}
         placeholder="you@example.com"
-        onChange={(event) => {
-          setEmail(event.target.value);
-        }}
+        onChange={handleChange}
         className="p-2 bg-white/10 border border-white/10 rounded-lg focus:outline-none focus:ring focus:ring-yellow-400"
       />
+      {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
       <label htmlFor="password">Password</label>
       <input
         type="password"
         name="password"
         id="password"
-        value={password}
-        onChange={(event) => setPassword(event.target.value)}
+        value={loginForm.password}
+        onChange={handleChange}
         placeholder="Enter your password"
         className="p-2 bg-white/10 border  border-white/10 rounded-xl focus:outline-none focus:ring focus:ring-yellow-400"
       />
+      {errors.password && (
+        <p className="text-sm text-red-500">{errors.password}</p>
+      )}
       <div className="grid grid-cols-2 gap-4 text-sm">
         <div className="flex justify-center items-center gap-2">
           <input type="checkbox" id="remember" />
@@ -65,3 +120,29 @@ export const LoginForm = () => {
   );
 };
 
+const validateField = (name, value) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const lowerCaseRegex = /[a-z]/;
+  const upperCaseRegex = /[A-Z]/;
+  const specialRegex = /[!@#$%^&*()]/;
+  if (name === "email") {
+    if (!emailRegex.test(value) && value.length !== 0) {
+      return "Invalid email";
+    } else return null;
+  }
+  if (name === "password") {
+    if ((value.length < 8 || value.length > 28) && value.length !== 0) {
+      return "Password must be between 8 and 28 characters";
+    }
+    if (value.length !== 0 && !lowerCaseRegex.test(value)) {
+      return "password must have atleast one lowercase character";
+    }
+    if (value.length !== 0 && !upperCaseRegex.test(value)) {
+      return "Password must have atleast one uppercase character";
+    }
+    if (value.length !== 0 && !specialRegex.test(value)) {
+      return "Password must have atleast one special character";
+    }
+    return null;
+  }
+};

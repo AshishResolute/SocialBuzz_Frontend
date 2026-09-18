@@ -17,7 +17,12 @@ export const SignupForm = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    const error = validateField(name, value, formData.password,formData.confirmPassword);
+    const error = validateField(
+      name,
+      value,
+      formData.password,
+      formData.confirmPassword,
+    );
     if (error) {
       setErrors((prev) => ({
         ...prev,
@@ -72,8 +77,7 @@ export const SignupForm = () => {
         password: `Invalid password provided!`,
       }));
       return;
-    } 
-     else if (formData.password.length === 0) {
+    } else if (formData.password.length === 0) {
       setErrors((prev) => ({
         ...prev,
         password: `Password required!`,
@@ -85,7 +89,8 @@ export const SignupForm = () => {
         password: `Invalid password provided!`,
       }));
       return;
-  }else console.log(`res submitted`, formData);}
+    } else console.log(`res submitted`, formData);
+  };
   return (
     <form
       action=""
@@ -165,8 +170,7 @@ export const SignupForm = () => {
   );
 };
 
-const validateField = (name, value, password,confirmPassword) => {
-  console.log(password);
+const validateField = (name, value, password, confirmPassword) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const lowerCaseRegex = /[a-z]/;
   const upperCaseRegex = /[A-Z]/;
@@ -192,16 +196,14 @@ const validateField = (name, value, password,confirmPassword) => {
     }
     if (!specialRegex.test(value) && value.length !== 0) {
       return "password must have atleast 1 special character";
-    }
-    else if(value!==confirmPassword){
-      return "Passwords don\'t match!"
+    } else if (value !== confirmPassword) {
+      return "Passwords don\'t match!";
     }
     return null;
   }
- if(name==='confirmPassword'){
-  if(value.length!==0&&value!==password){
-    return 'passwords don\'t match'
+  if (name === "confirmPassword") {
+    if (value.length !== 0 && value !== password) {
+      return "passwords don't match";
+    } else return null;
   }
-  else return null
- }
 };
