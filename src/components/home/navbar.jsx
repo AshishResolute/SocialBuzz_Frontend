@@ -20,7 +20,10 @@ export const NavBar = () => {
         />
         <GoBell className="text-xl sm:hidden" />
       </div>
+      <div className="hidden sm:flex gap-4 sm:items-center">
       <GoBell className="text-xl hidden sm:block" />
+      <div className="hidden sm:block sm:h-6 sm:w-6 sm:rounded-full bg-slate-700"></div>
+      </div>
     </nav>
   );
 };
