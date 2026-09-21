@@ -4,7 +4,7 @@ import { GoBell } from "react-icons/go";
 
 export const NavBar = () => {
   return (
-    <nav className="p-5 mt-2 flex justify-between sm:justify-between  items-center w-full gap-5 text-white ">
+    <nav className="p-5 mt-2 flex justify-between sm:justify-between items-center w-full gap-5 text-white ">
       <h1 className="text-3xl text-center inline-block font-bold text-slate-400">
         Social<span className="text-3xl font-bold text-yellow-300">Buzz</span>
       </h1>

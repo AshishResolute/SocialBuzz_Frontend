@@ -8,11 +8,14 @@ import { GoHomeFill } from "react-icons/go";
 import { MdOutlineExplore } from "react-icons/md";
 import { BsPatchPlus } from "react-icons/bs";
 import { FaRegUser } from "react-icons/fa";
+import { IoSettingsOutline } from "react-icons/io5";
 export const MainContent = () => {
   return (
-    <div className="p-5 pb-1.5 flex flex-col gap-4">
-      <main>
+    <div className="p-5 pb-1.5 flex flex-col gap-4 overflow-y-hidden">
+      <main className="sm:grid sm:grid-cols-[1fr_3fr] lg:grid-cols-[1fr_3fr_1fr] gap-6 overflow-y-hidden">
+        <RightSideBar/>
         <Feed />
+        <LeftSideBar/>
       </main>
       <BottomNav />
     </div>
@@ -21,10 +24,11 @@ export const MainContent = () => {
 
 const Feed = () => {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col flex-1 gap-4 overflow-y-scroll custom-scroll">
       {mockPostData.map((data, ind) => (
         <PostCard key={ind} {...data} />
       ))}
+      <p className="text-sm hidden sm:block text-slate-500 text-center">You reached the end</p>
     </div>
   );
 };
@@ -127,3 +131,69 @@ const BottomNav = () => {
     </div>
   );
 };
+
+
+const LeftSideBar = ()=>{
+  return (
+    <div className="hidden lg:flex lg:flex-col lg:flex-1 text-white p-2 bg-slate-800 ">
+      <div className="flex flex-col gap-5">
+         <div className="flex gap-2  items-center border hover:border-yellow-300 transition-all duration-300 p-3">
+        <GoHomeFill />
+        <span className="text-lg">Home</span>
+      </div>
+      <div className="flex gap-2  items-center border hover:border-yellow-300 transition-all duration-300 p-3">
+        <MdOutlineExplore />
+        <span className="text-lg">Explore</span>
+      </div>
+      <div className="flex gap-2  items-center border hover:border-yellow-300 transition-all duration-300 p-3">
+        <BsPatchPlus />
+        <span className="text-lg">Post</span>
+      </div>
+      <div className="flex gap-2  items-center border hover:border-yellow-300 transition-all duration-300 p-3">
+        <FaRegComment />
+        <span className="text-lg">Messages</span>
+      </div>
+      <div className="flex gap-2  items-center border hover:border-yellow-300 transition-all duration-300 p-3">
+        <FaRegUser />
+        <span className="text-lg">Profile</span>
+      </div>
+      <div className="flex gap-2  items-center border hover:border-yellow-300 transition-all duration-300 p-3">
+        <IoSettingsOutline/>
+        <span className="text-lg">Settings</span>
+      </div>
+      </div>
+    </div>
+  )
+}
+const RightSideBar = ()=>{
+  return (
+    <div className="hidden sm:flex sm:flex-col sm:flex-1 overflow-y-hidden top-6 text-white p-2 bg-slate-800 ">
+      <div className="flex flex-col gap-5">
+         <div className="flex gap-2  items-center border hover:border-yellow-300 transition-all duration-300 p-3">
+        <GoHomeFill />
+        <span className="text-lg">Home</span>
+      </div>
+      <div className="flex gap-2  items-center border hover:border-yellow-300 transition-all duration-300 p-3">
+        <MdOutlineExplore />
+        <span className="text-lg">Explore</span>
+      </div>
+      <div className="flex gap-2  items-center border hover:border-yellow-300 transition-all duration-300 p-3">
+        <BsPatchPlus />
+        <span className="text-lg">Post</span>
+      </div>
+      <div className="flex gap-2  items-center border hover:border-yellow-300 transition-all duration-300 p-3">
+        <FaRegComment />
+        <span className="text-lg">Messages</span>
+      </div>
+      <div className="flex gap-2  items-center border hover:border-yellow-300 transition-all duration-300 p-3">
+        <FaRegUser />
+        <span className="text-lg">Profile</span>
+      </div>
+      <div className="flex gap-2  items-center border hover:border-yellow-300 transition-all duration-300 p-3">
+        <IoSettingsOutline/>
+        <span className="text-lg">Settings</span>
+      </div>
+      </div>
+    </div>
+  )
+}
