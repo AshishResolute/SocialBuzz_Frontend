@@ -14,7 +14,7 @@ export const MainContent = () => {
       <main>
         <Feed />
       </main>
-      <BottomNav/>
+      <BottomNav />
     </div>
   );
 };
@@ -22,25 +22,36 @@ export const MainContent = () => {
 const Feed = () => {
   return (
     <div className="flex flex-col gap-4">
-      {mockPostData.map((data,ind)=>(
-        <PostCard key={ind} {...data}/>
+      {mockPostData.map((data, ind) => (
+        <PostCard key={ind} {...data} />
       ))}
     </div>
   );
 };
 
-const PostCard = ({imgSrc,username,createdAt,location,postContent,postImage}) => {
-    
+const PostCard = ({
+  imgSrc,
+  username,
+  createdAt,
+  location,
+  postContent,
+  postImage,
+}) => {
   return (
     <div className="flex flex-col text-slate-400 p-2 bg-slate-900 border border-slate-700 rounded-2xl gap-4">
-      <PostCardHeader imgSrc={imgSrc} username={username} createdAt={createdAt} location={location}/>
-      <PostContent postContent={postContent} postImage={postImage}/>
-      <PostActions/>
+      <PostCardHeader
+        imgSrc={imgSrc}
+        username={username}
+        createdAt={createdAt}
+        location={location}
+      />
+      <PostContent postContent={postContent} postImage={postImage} />
+      <PostActions />
     </div>
   );
 };
 
-const PostCardHeader = ({imgSrc, username,createdAt,location}) => {
+const PostCardHeader = ({ imgSrc, username, createdAt, location }) => {
   return (
     <div className="flex justify-between items-center p-4">
       <div className="flex gap-3 items-center">
@@ -49,55 +60,70 @@ const PostCardHeader = ({imgSrc, username,createdAt,location}) => {
           alt="profile-picture"
           className="h-8 w-8 rounded-full"
         />
-         <div>
-        <p className="text-xl bold text-white">{username}</p>
-        <div className="space-x-1.5 text-sm text-slate-500">
-          <span>{createdAt}</span>
-          <span>{location||"Earth"}</span>
+        <div>
+          <p className="text-xl bold text-white">{username}</p>
+          <div className="space-x-1.5 text-sm text-slate-500">
+            <span>{createdAt}</span>
+            <span>{location || "Earth"}</span>
+          </div>
         </div>
       </div>
+      <div>
+        <FaEllipsisH />
       </div>
-      <div><FaEllipsisH/></div>
     </div>
   );
 };
 
+const PostContent = ({ postContent, postImage }) => {
+  return (
+    <div className="flex flex-col p-4 pb-0 gap-3 rounded-xl overflow-hidden">
+      <p className="text-slate-300 text-lg">{postContent}</p>
+      <img
+        src={postImage}
+        alt="user post image"
+        className="h-32 object-cover object-center rounded-3xl "
+      />
+    </div>
+  );
+};
 
-const PostContent = ({postContent,postImage})=>{
-    return (
-        <div className="flex flex-col p-4 pb-0 gap-3 rounded-xl overflow-hidden">
-            <p className="text-slate-300 text-lg">{postContent}</p>
-            <img src={postImage} alt="user post image" className="h-32 object-cover object-center rounded-3xl "/>
-        </div>
-    )
-}
+const PostActions = () => {
+  return (
+    <div className="flex justify-between gap-5 p-4 items-center text-xl bold ">
+      <div className="flex gap-6 items-center">
+        <FiHeart className="hover:fill-yellow-300 hover:text-yellow-300 hover:tranform-color duration-300" />
+        <FaRegComment />
+        <FaShare />
+      </div>
+      <FaRegBookmark />
+    </div>
+  );
+};
 
-const PostActions = ()=>{ 
-    return (
-        <div className="flex justify-between gap-5 p-4 items-center text-xl bold ">
-            <div className="flex gap-6 items-center">
-                <FiHeart className="hover:fill-yellow-300 hover:text-yellow-300 hover:tranform-color duration-300"/>
-                <FaRegComment/>
-                <FaShare/>
-            </div>
-            <FaRegBookmark/>
-        </div>
-    )
-}
-
-const BottomNav = ()=>{
+const BottomNav = () => {
   return (
     <div className="sm:hidden flex flex-1 gap-3 text-3xl p-3  items-center justify-between text-white ">
-      <div className="flex flex-col gap-2 text-center justify-center items-center"><GoHomeFill/><span className="text-lg">Home</span></div>
-      <div className="flex flex-col gap-2 text-center justify-center items-center"><MdOutlineExplore/><span className="text-lg">Explore</span></div>
-      <div className="flex flex-col gap-2 text-center justify-center items-center"><BsPatchPlus/><span className="text-lg">Post</span></div>
-      <div className="flex flex-col gap-2 text-center justify-center items-center"><FaRegComment/><span className="text-lg">Messages</span></div>
-      <div className="flex flex-col gap-2 text-center justify-center items-center"><FaRegUser/><span className="text-lg">Profile</span></div>
-      
-      
-      
-      
-      
+      <div className="flex flex-col gap-2 text-center justify-center items-center">
+        <GoHomeFill />
+        <span className="text-lg">Home</span>
+      </div>
+      <div className="flex flex-col gap-2 text-center justify-center items-center">
+        <MdOutlineExplore />
+        <span className="text-lg">Explore</span>
+      </div>
+      <div className="flex flex-col gap-2 text-center justify-center items-center">
+        <BsPatchPlus />
+        <span className="text-lg">Post</span>
+      </div>
+      <div className="flex flex-col gap-2 text-center justify-center items-center">
+        <FaRegComment />
+        <span className="text-lg">Messages</span>
+      </div>
+      <div className="flex flex-col gap-2 text-center justify-center items-center">
+        <FaRegUser />
+        <span className="text-lg">Profile</span>
+      </div>
     </div>
-  )
-}
+  );
+};
