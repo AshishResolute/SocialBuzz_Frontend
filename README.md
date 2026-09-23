@@ -1,16 +1,67 @@
-# React + Vite
+# SocialBuzz
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack social media platform I'm building from scratch to learn and practice real-world frontend and backend development.
 
-Currently, two official plugins are available:
+SocialBuzz focuses on a clean, responsive social-media experience with authentication, posts, profiles, search, and more features being added as the project evolves.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+> 🚧 This project is actively being developed.
 
-## React Compiler
+## ✨ Current Frontend
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Responsive social media feed
+- Desktop, tablet, and mobile layouts
+- Responsive navigation
+- Mobile bottom navigation
+- Post cards with:
+  - User information
+  - Post content
+  - Images
+  - Like, comment, share, and bookmark actions
+- Search UI
+- Notifications UI
+- User profile summary
+- "Who to follow" section
+- Create post action
+- Custom scrollbar
+- Responsive sidebar layout
+- Authentication UI
+- Reusable React components
 
-## Expanding the ESLint configuration
+## 🖥️ Responsive Design
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+SocialBuzz uses different layouts depending on the available screen size:
+
+**Desktop**
+
+`Navigation → Feed → Profile / Suggestions`
+
+**Tablet**
+
+`Navigation → Feed`
+
+**Mobile**
+
+`Feed + Mobile Bottom Navigation`
+
+The layout is designed around the content rather than relying on fixed device breakpoints.
+
+## 🛠️ Tech Stack
+
+- React
+- JavaScript / JSX
+- Vite
+- Tailwind CSS
+- React Router
+- React Icons
+- Sora font
+
+## 📁 Project Structure
+
+```text
+src/
+├── assets/
+├── components/
+├── pages/
+├── App.jsx
+├── main.jsx
+└── ...
