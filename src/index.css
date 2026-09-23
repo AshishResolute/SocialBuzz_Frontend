@@ -5,6 +5,7 @@
 @theme{
   --font-manrope:"Manrope",sans-serif;
   --font-sora:"Sora",sans-serif;
+   --breakpoint-wide: 1200px;
 }
 
 @layer utilities {
@@ -49,4 +50,12 @@
   scrollbar-width: thin;
   scrollbar-color: #334155 transparent;
 }
+@media (min-width: 1200px) {
+    .wide\:grid-cols-\[1fr_3fr_1fr\] {
+      grid-template-columns: 1fr 3fr 1fr;
+    }
+    .wide\:block {
+      display: block;
+    }
+  }
 }
