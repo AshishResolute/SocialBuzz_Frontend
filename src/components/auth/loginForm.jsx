@@ -10,7 +10,7 @@ export const LoginForm = () => {
     email: null,
     password: null,
   });
-  const handleLogin = (event) => {
+  const handleLogin = async(event) => {
     event.preventDefault();
     if (loginForm.email.length === 0) {
       setErrors((prev) => ({
@@ -39,7 +39,25 @@ export const LoginForm = () => {
         password: `Invalid password provided!`,
       }));
       return;
-    } else console.log(`res sent`, loginForm);
+    } else {
+      try{
+        console.log(`${import.meta.env.VITE_API_URL}/auth/login`)
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`,{
+          method:"POST",
+          headers:{
+            'Content-Type':'application/json'
+          },
+          body:JSON.stringify(loginForm),
+          credentials:"include"
+        })
+         if(!res.ok){
+        throw new Error(`Login failed`)
+      }
+      }
+      catch(error){
+        console.error(error.message)
+      }
+    };
   };
 
   const handleChange = (event) => {

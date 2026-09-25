@@ -2,14 +2,14 @@ import { useState } from "react";
 
 export const SignupForm = () => {
   const [formData, setFormData] = useState({
-    username: "",
+    userName: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
 
   const [errors, setErrors] = useState({
-    username: null,
+    userName: null,
     email: null,
     password: null,
     confirmPassword: null,
@@ -23,6 +23,7 @@ export const SignupForm = () => {
       formData.password,
       formData.confirmPassword,
     );
+    console.log(name, value);
     if (error) {
       setErrors((prev) => ({
         ...prev,
@@ -39,18 +40,18 @@ export const SignupForm = () => {
       [name]: value,
     }));
   };
-  const handleSignup = (event) => {
+  const handleSignup = async (event) => {
     event.preventDefault();
-    if (formData.username.length === 0) {
+    if (formData.userName.length === 0) {
       setErrors((prev) => ({
         ...prev,
-        username: `username is required`,
+        userName: `userName is required`,
       }));
       return;
-    } else if (errors.username !== null) {
+    } else if (errors.userName !== null) {
       setErrors((prev) => ({
         ...prev,
-        username: `Invalid username`,
+        userName: `Invalid userName`,
       }));
       return;
     } else if (formData.email.length === 0) {
@@ -89,7 +90,25 @@ export const SignupForm = () => {
         password: `Invalid password provided!`,
       }));
       return;
-    } else console.log(`res submitted`, formData);
+    } else {
+      try {
+        console.log(`${import.meta.env.VITE_API_URL}/auth/signup`);
+        console.log(formData);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/signup`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+          credentials: "include",
+        });
+        if (!res.ok) {
+          throw new Error(`signup failed`);
+        }
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
   };
   return (
     <form
@@ -102,20 +121,20 @@ export const SignupForm = () => {
       </h2>
       <p className="text-sm">join the community and start sharing</p>
       <div className="flex flex-col space-y-1.5">
-        <label htmlFor="username">Full name</label>
+        <label htmlFor="userName">Full name</label>
         <input
           type="text"
-          name="username"
-          value={formData.username}
+          name="userName"
+          value={formData.userName}
           onChange={handleChange}
-          id="username"
+          id="userName"
           placeholder="Enter your name"
           className="p-1.5  bg-white/10 border border-white/10 rounded-lg focus:outline-none focus:ring focus:ring-yellow-400"
         />
-        {errors.username && (
-          <p className="text-red-500 text-sm">{errors.username}</p>
+        {errors.userName && (
+          <p className="text-red-500 text-sm">{errors.userName}</p>
         )}
-        {/* {formData.username.length===0&& <p className="text-red-500 text-sm">username is required</p>} */}
+        {/* {formData.userName.length===0&& <p className="text-red-500 text-sm">userName is required</p>} */}
         <label htmlFor="email">Email address</label>
         <input
           type="email"
@@ -175,9 +194,9 @@ const validateField = (name, value, password, confirmPassword) => {
   const lowerCaseRegex = /[a-z]/;
   const upperCaseRegex = /[A-Z]/;
   const specialRegex = /[!@#$%^&*()]/;
-  if (name === "username") {
+  if (name === "userName") {
     if ((value.length < 3 || value.length > 15) && value.length !== 0)
-      return "username must be between 3 and 15 characters";
+      return "userName must be between 3 and 15 characters";
     else return null;
   }
   if (name === "email") {
