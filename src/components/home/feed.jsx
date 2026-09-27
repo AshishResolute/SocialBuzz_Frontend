@@ -140,7 +140,7 @@ const BottomNav = () => {
 const LeftSideBar = () => {
   return (
     <div className="hidden sm:flex sm:flex-col sm:justify-between p-5 overflow-y-hidden top-6 text-white  bg-gray-900 ">
-      <div className="flex flex-col gap-3 text-lg text-slate-300">
+      <div className="flex flex-col gap-4 text-lg text-slate-300">
         <div className="flex gap-2  items-center border border-transparent hover:text-yellow-300  hover:border-b-yellow-300 transition-all duration-300 p-3">
           <GoHomeFill />
           <span className="text-lg">Home</span>
